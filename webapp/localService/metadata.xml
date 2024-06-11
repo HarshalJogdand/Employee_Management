@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema Namespace="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="EMP_TIMESHEET_ENTRYType">
+                <Key>
+                    <PropertyRef Name="SR_NO" />
+                    <PropertyRef Name="EMPLOYEE_ID" />
+                    <PropertyRef Name="PROJECT_ID" />
+                    <PropertyRef Name="TASK_ID" />
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false" />
+                <Property Name="EMPLOYEE_ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="EMPLOYEE_NAME" Type="Edm.String" Nullable="false" MaxLength="40" />
+                <Property Name="DATE" Type="Edm.DateTime" Nullable="false" />
+                <Property Name="START_TIME" Type="Edm.Time" />
+                <Property Name="END_TIME" Type="Edm.Time" />
+                <Property Name="BREAK_TIME" Type="Edm.Time" />
+                <Property Name="PROJECT_ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="TASK_ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="STATUS" Type="Edm.Int32" />
+                <NavigationProperty Name="PROJECT_TASK_MASTER_REF" Relationship="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.ASSO_PROJECT_TASK_MASTERType" FromRole="EMP_TIMESHEET_ENTRYPrincipal" ToRole="EMP_PROJECT_TASK_MASTERDependent" />
+                <NavigationProperty Name="STATUS_MASTER_REF" Relationship="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.ASSO_STATUS_MASTERType" FromRole="EMP_TIMESHEET_ENTRYPrincipal" ToRole="EMP_STATUS_MASTERDependent" />
+            </EntityType>
+            <EntityType Name="EMP_PROJECT_TASK_MASTERType">
+                <Key>
+                    <PropertyRef Name="PROJECT_ID" />
+                    <PropertyRef Name="TASK_ID" />
+                </Key>
+                <Property Name="PROJECT_ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="PROJECT_NAME" Type="Edm.String" Nullable="false" MaxLength="40" />
+                <Property Name="TASK_ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="TASK_NAME" Type="Edm.String" Nullable="false" MaxLength="40" />
+            </EntityType>
+            <EntityType Name="EMP_STATUS_MASTERType">
+                <Key>
+                    <PropertyRef Name="STATUS" />
+                </Key>
+                <Property Name="STATUS" Type="Edm.Int32" Nullable="false" />
+                <Property Name="STATUS_DESCRIPTION" Type="Edm.String" MaxLength="20" />
+            </EntityType>
+            <Association Name="ASSO_PROJECT_TASK_MASTERType">
+                <End Type="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_TIMESHEET_ENTRYType" Role="EMP_TIMESHEET_ENTRYPrincipal" Multiplicity="1"/>
+                <End Type="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_PROJECT_TASK_MASTERType" Role="EMP_PROJECT_TASK_MASTERDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="ASSO_STATUS_MASTERType">
+                <End Type="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_TIMESHEET_ENTRYType" Role="EMP_TIMESHEET_ENTRYPrincipal" Multiplicity="1"/>
+                <End Type="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_STATUS_MASTERType" Role="EMP_STATUS_MASTERDependent" Multiplicity="1"/>
+            </Association>
+            <EntityContainer Name="ODATA_EMPLOYEE_MANAGEMENT" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="EMP_TIMESHEET_ENTRY" EntityType="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_TIMESHEET_ENTRYType" />
+                <EntitySet Name="EMP_PROJECT_TASK_MASTER" EntityType="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_PROJECT_TASK_MASTERType" />
+                <EntitySet Name="EMP_STATUS_MASTER" EntityType="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.EMP_STATUS_MASTERType" />
+                <AssociationSet Name="ASSO_PROJECT_TASK_MASTER" Association="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.ASSO_PROJECT_TASK_MASTERType">
+                    <End Role="EMP_TIMESHEET_ENTRYPrincipal" EntitySet="EMP_TIMESHEET_ENTRY"/>
+                    <End Role="EMP_PROJECT_TASK_MASTERDependent" EntitySet="EMP_PROJECT_TASK_MASTER"/>
+                </AssociationSet>
+                <AssociationSet Name="ASSO_STATUS_MASTER" Association="EMPLOYEE_MANAGEMENT.XSODATA.ODATA_EMPLOYEE_MANAGEMENT.ASSO_STATUS_MASTERType">
+                    <End Role="EMP_TIMESHEET_ENTRYPrincipal" EntitySet="EMP_TIMESHEET_ENTRY"/>
+                    <End Role="EMP_STATUS_MASTERDependent" EntitySet="EMP_STATUS_MASTER"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

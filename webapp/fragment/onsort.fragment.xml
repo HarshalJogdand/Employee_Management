@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog
+        title="Sorting"
+        sortDescending="true"
+        groupDescending="true"
+        confirm="handleConfirm"
+        selectedSortItem="sortItem3">
+        <sortItems>
+            <ViewSettingsItem text="Employee ID" key="EMPLOYEE_ID"  />
+            <!-- <ViewSettingsItem text="Country" key="COUNTRY" selected="true" /> -->
+        </sortItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

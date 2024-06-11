@@ -1,0 +1,165 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    controllerName="com.ibspl.employeetaskmanagement.controller.View2"
+>
+    <Page enableScrolling="true">
+        <content>
+            <VBox class="sapUiSmallMargin">
+              <f:SimpleForm    editable="false"
+                    layout="ColumnLayout"
+                    title="Employee Timesheet "
+                   
+                    columnsXL="2"
+                    columnsL="2"
+                    columnsM="1">
+                <m:Label text="Date" required="true" design="Bold"/>
+                <m:DatePicker id="idDateRangeSelection" width="{appView>/device}" displayFormat="short" class="sapUiSmallMarginBottom" valueFormat="dd.MM.yyyy"/>
+
+                <m:Label text="Project Name" required="true" design="Bold"/>
+                <m:ComboBox id="idProjectName" items="{projetname>/}" width="{appView>/device}"  change="readProjectName" >
+                    <core:Item key="{projetname>PROJECT_ID}" text="{projetname>PROJECT_NAME}" />
+                </m:ComboBox>
+
+                <m:Label text="Task Name" required="true" design="Bold"/>
+                <m:ComboBox id="idTaskName" items="{projectMasterModel>/}" width="{appView>/device}">
+                    <core:Item key="{projectMasterModel>TASK_ID}" text="{projectMasterModel>TASK_NAME}"/>
+                </m:ComboBox>
+
+                <m:Label text="Start Time" required="true" design="Bold"/>
+                <m:TimePicker id="idStartTime" width="{appView>/device}" value="{path: '/startTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <m:Label text="End Time" required="true" design="Bold"/>
+                <m:TimePicker id="idEndTime" width="{appView>/device}" value="{path: '/endTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <m:Label text="Break Time" required="true" design="Bold"/>
+                <m:TimePicker id="idBreakTime" width="{appView>/device}" value="{path: '/breakTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <m:Label text="Remark" required="true" design="Bold"/>
+                <m:TextArea id="idRemark" width="{appView>/device}" value=""/>
+            </f:SimpleForm>
+                <!-- Button to add a new entry -->
+                <m:Button text="Add More" press="onSaveTask"/>
+
+
+ </VBox>
+                    </content>
+
+                <m:Table
+                    id="idTimesheetTable"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    inset="false"
+                    items="{path:'New_data>/results'}"
+                    class="sapUiContentPadding"
+                    growing="true"
+                    visible="true"
+                    growingThreshold="10"
+                    autoPopinMode="true"
+                    fixedLayout="true"
+                >
+                    <m:columns>
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="Date"
+                                design="Bold"
+                                wrapping="true"
+                            />
+                        </m:Column>
+
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="Project Name"
+                                design="Bold"
+                                wrapping="true"
+                            />
+                        </m:Column>
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="Task Name"
+                                design="Bold"
+                                wrapping="true"
+                            />
+                        </m:Column>
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="Start Time"
+                                design="Bold"
+                            />
+                        </m:Column>
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="End Time"
+                                design="Bold"
+                            />
+                        </m:Column>
+
+                        <m:Column
+                            hAlign="Center"
+                            width="9rem"
+                        >
+                            <m:Label
+                                text="Break Time"
+                                design="Bold"
+                            />
+                        </m:Column>
+
+                        <m:Column
+                            width="9rem"
+                            hAlign="Center"
+                        >
+                            <m:Label
+                                text="Remark"
+                                design="Bold"
+                            />
+                        </m:Column>
+                    </m:columns>
+                    <m:items>
+                        <m:ColumnListItem
+                            type="Inactive"
+                            press="onPress"
+                        >
+                            <m:cells>
+                                <m:Text
+                                    text="{path:'New_data>DATE' , type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd/MM/yyyy'}}"
+                                />
+                                <m:Text text="{New_data>PROJECT_CODE}" />
+                                <m:Text text="{New_data>TASK_DISC}" />
+                                <m:Text text="{path:'New_data>START_TIME'}" />
+                                <Text text="{New_data>END_TIME}" />
+                                <Text text="{New_data>BREAK_TIM}" />
+                                <Text text="{New_data>EMPLOYEE_REMARK}" />
+                            </m:cells>
+                        </m:ColumnListItem>
+                    </m:items>
+                </m:Table>
+           
+   
+        <m:footer>
+    <m:Toolbar id="oFootbar">
+        <m:ToolbarSpacer/>
+        <m:Button type="Accept" text="Submit" press="SubmitTask"/>
+        <m:Button text="Close" type="Reject" press="onClose"/>
+        <m:ToolbarSpacer/>
+    </m:Toolbar>
+</m:footer>
+    </Page>
+</mvc:View>

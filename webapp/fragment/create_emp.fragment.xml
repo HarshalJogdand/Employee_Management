@@ -1,0 +1,56 @@
+<core:FragmentDefinition 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form">
+
+    <Dialog id="addEmployeeTaskDialog" title="Add Employee Task" contentWidth="46%" >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://navigation-left-arrow" press="onClose"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Add Employee Task"/>
+                </contentMiddle>
+                <contentRight>
+                    <Button text="Add Multiple task" press="onAddMoreEntries"/>
+                    
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <buttons>
+        <Button text="Save" type="Accept" press="onSave"/>
+            <Button text="Close" type="Reject" press="onClose"/>
+        </buttons>
+        <content>
+            <f:SimpleForm layout="ColumnLayout" columnsL="2" columnsM="2" columnsXL="2">
+                <Label text="Date" required="true" design="Bold"/>
+                <DatePicker id="idDateRangeSelection" displayFormat="short" class="sapUiSmallMarginBottom" valueFormat="dd.MM.yyyy"/>
+
+                <Label text="Project Name" required="true" design="Bold"/>
+                <ComboBox id="idProjectName" items="{projetname>/}"  change="readProjectName">
+                    <core:Item key="{projetname>PROJECT_ID}" text="{projetname>PROJECT_NAME}"/>
+                </ComboBox>
+
+                <Label text="Task Name" required="true" design="Bold"/>
+                <ComboBox id="idTaskName" items="{projectMasterModel>/}">
+                    <core:Item key="{projectMasterModel>TASK_ID}" text="{projectMasterModel>TASK_NAME}"/>
+                </ComboBox>
+
+                <Label text="Start Time" required="true" design="Bold"/>
+                <TimePicker id="idStartTime" value="{path: '/startTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <Label text="End Time" required="true" design="Bold"/>
+                <TimePicker id="idEndTime" value="{path: '/endTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <Label text="Break Time" required="true" design="Bold"/>
+                <TimePicker id="idBreakTime" value="{path: '/breakTime', type: 'sap.ui.model.type.Time'}"/>
+
+                <Label text="Remark" required="true" design="Bold"/>
+                <TextArea id="idRemark" value=""/>
+            </f:SimpleForm>
+        </content> 
+    </Dialog>
+
+</core:FragmentDefinition>
